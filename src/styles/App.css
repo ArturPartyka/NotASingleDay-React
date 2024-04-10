@@ -1,0 +1,26 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.App {
+  background-color: #999;
+
+}
+
+.NavigationList {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+}
+
+.NavigationElem {
+  padding: 5px;
+  margin: 5px 15px;
+  text-transform: uppercase;
+  border: #555 solid;
+  border-radius: 5px;
+}
