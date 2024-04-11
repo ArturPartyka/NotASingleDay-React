@@ -6,7 +6,7 @@ function ActievietesInput({ text, activity, checked, click }) {
             {text}
             <input type="checkbox"
                 checked={checked}
-                onClick={click} />
+                onChange={click} />
         </label>
     );
 }
