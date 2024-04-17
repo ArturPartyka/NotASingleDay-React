@@ -14,13 +14,23 @@
 .NavigationList {
   display: flex;
   flex-direction: row;
-  list-style-type: none;
 }
 
 .NavigationElem {
+  list-style-type: none;
   padding: 5px;
   margin: 5px 15px;
   text-transform: uppercase;
   border: #555 solid;
   border-radius: 5px;
+}
+
+.NavigationElem a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.NavigationElem a.active {
+  color: darkgreen;
 }

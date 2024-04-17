@@ -1,12 +1,13 @@
 import React, { createContext, useState } from 'react';
 
-export const AppContext = createContext();
+export const AppContext = createContext("");
 
 const AppProvider = ({ children }) => {
 
+    const [isUserLogged, setIsUserLogged] = useState(false)
 
     const [userData, setUserData] = useState({
-        firstName: 'a',
+        firstName: '',
         lastName: '',
         place: '',
         userActievietes: null,
@@ -65,7 +66,7 @@ const AppProvider = ({ children }) => {
     ]
 
     return (
-        <AppContext.Provider value={{ userData, setUserData, actievietes }}
+        <AppContext.Provider value={{ userData, setUserData, actievietes, isUserLogged, setIsUserLogged }}
         >
             {children}
         </AppContext.Provider>

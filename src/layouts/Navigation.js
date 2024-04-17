@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
+
+import { AppContext } from '../AppProvider';
 
 function Navigation() {
+
+    const { isUserLogged } = useContext(AppContext)
+
+    const profilePagePath = isUserLogged ? '/ProfilePage' : '/NewProfilePage'
+
+    const list = [
+        { name: 'start', path: '/', },
+        { name: 'znajomi', path: '/friends', },
+        { name: 'wydarzenia', path: '/events', },
+        { name: 'Twój profil', path: profilePagePath, },
+    ]
+
+    const menu = list.map(item => (
+        <li key={item.name} className='NavigationElem'>
+            <NavLink to={item.path}>{item.name}</NavLink>
+        </li>
+    ))
+
     return (
         <>
-            <ul className='NavigationList'>
-                <li className='NavigationElem'>Aktywne osoby</li>
-                <li className='NavigationElem'>Znajomi</li>
-                <li className='NavigationElem'>Wydarzenia</li>
-                <li className='NavigationElem'>Twój profil</li>
-            </ul>
+            <nav>
+                <ul className='NavigationList'>
+                    {menu}
+                </ul>
+            </nav>
         </>
     );
 }

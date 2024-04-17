@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 import Page from './Page';
 import Header from './Header';
 
@@ -10,6 +11,7 @@ import '../styles/App.css';
 function App() {
   return (
     <div className='App'>
+
       <AppProvider>
 
         <Header />

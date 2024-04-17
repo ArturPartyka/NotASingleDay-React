@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 
 
 import { AppContext } from '../AppProvider';
@@ -10,6 +10,8 @@ function ProfilePage() {
 
     console.log(userData.userActievietes);
 
+    const [actualActievietyChecked, setAactualActievietyChecked] = useState(false)
+
 
     let actievietesInputs = () => {
         if (userData.userActievietes) {
@@ -19,7 +21,7 @@ function ProfilePage() {
                         key={activity.text}
                         text={activity.text}
                         activity={activity.activity}
-                        checked={activity.checked}
+                        checked={actualActievietyChecked}
                         click={activity.click} />)
             }))
         }
