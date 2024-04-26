@@ -1,19 +1,39 @@
 import React, { useContext } from 'react';
 import { Route, Routes, } from 'react-router-dom';
+import { AppContext } from '../AppProvider';
 
 import NewProfilePage from '../pages/NewProfilePage';
 import ProfilePage from '../pages/ProfilePage';
-import { AppContext } from '../AppProvider';
+import SearchPage from '../pages/SearchPage';
+import FindUsers from '../pages/FindUsers';
+import ShareUserData from '../pages/ShareUserData';
 
 function Page() {
 
-    // const { isUserLogged } = useContext(AppContext)
+    // const API = 'https://randomuser.me/api/?results=20'
+
+    // let handleDataFetch = () => {
+    //     fetch(API)
+    //         .then(response => {
+    //             if (response.ok) {
+    //                 return response
+    //             }
+    //             throw Error(response.status)
+    //         })
+    //         .then(response => response.json())
+    //         .then(data => { console.log(data); })
+    // }
+    // handleDataFetch()
+    // // const { isUserLogged } = useContext(AppContext)
 
     return (
         <div className='Page'>
             <Routes>
                 <Route path='/NewProfilePage' element={<NewProfilePage />} />
                 <Route path='/ProfilePage' element={<ProfilePage />} />
+                <Route path='/search' element={<SearchPage />} />
+                <Route path='/findUsers' element={<FindUsers />} />
+                <Route path='/shareUserData' element={<ShareUserData />} />
             </Routes>
         </div>
     );

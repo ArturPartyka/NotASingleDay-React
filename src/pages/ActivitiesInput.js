@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ActievietesInput({ text, activity, checked, click }) {
+function ActivitiesInput({ text, activity, checked, click }) {
     return (
         <label htmlFor={activity}>
             {text}
@@ -11,4 +11,4 @@ function ActievietesInput({ text, activity, checked, click }) {
     );
 }
 
-export default ActievietesInput;
+export default ActivitiesInput;

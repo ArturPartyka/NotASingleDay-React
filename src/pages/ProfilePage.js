@@ -1,40 +1,42 @@
 import React, { useContext, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 
 import { AppContext } from '../AppProvider';
 
-import ActievietesInput from './ActievietesInput';
+// import ActivitiesInput from './ActivitiesInput';
 
 function ProfilePage() {
     const { userData } = useContext(AppContext)
+    const navigate = useNavigate()
 
-    console.log(userData.userActievietes);
+    // const [actualActivitiesChecked, setAactualActivitiesChecked] = useState(false)
 
-    const [actualActievietyChecked, setAactualActievietyChecked] = useState(false)
+    let handleProfileEditButtonCLick = () => {
+        navigate('/NewProfilePage')
+    }
 
-
-    let actievietesInputs = () => {
-        if (userData.userActievietes) {
-            return (userData.userActievietes.map(activity => {
+    let activitiesInputs = () => {
+        if (userData.userActivities) {
+            return (userData.userActivities.map(activity => {
                 return (
-                    <ActievietesInput
-                        key={activity.text}
-                        text={activity.text}
-                        activity={activity.activity}
-                        checked={actualActievietyChecked}
-                        click={activity.click} />)
+                    <li key={activity.text}>
+                        {activity.text}
+                    </li>)
             }))
         }
     }
 
-
     return (
         <div>
-            <h3>{userData.firstName}</h3>
-            <h3>{userData.lastName}</h3>
-            <h4>{userData.place}</h4>
-            {actievietesInputs()}
-
+            <h3>Imię: {userData.firstName}</h3>
+            <h3>Nazwisko: {userData.lastName}</h3>
+            <h4>Miejsce: {userData.place}</h4>
+            <h4>Płeć: {userData.gender}</h4>
+            <h4>Twoje aktywności:</h4>
+            <ul>
+                {activitiesInputs()}
+            </ul>
+            <button onClick={handleProfileEditButtonCLick}>Edytuj profil</button>
         </div>
     );
 }

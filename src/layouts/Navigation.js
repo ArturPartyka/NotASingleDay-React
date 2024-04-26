@@ -11,6 +11,7 @@ function Navigation() {
 
     const list = [
         { name: 'start', path: '/', },
+        { name: 'wyszukiwarka', path: '/search' },
         { name: 'znajomi', path: '/friends', },
         { name: 'wydarzenia', path: '/events', },
         { name: 'Twój profil', path: profilePagePath, },

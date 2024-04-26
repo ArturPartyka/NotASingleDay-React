@@ -10,8 +10,15 @@ const AppProvider = ({ children }) => {
         firstName: '',
         lastName: '',
         place: '',
-        userActievietes: null,
+        gender: '',
+        userActivites: null,
+        currentActivites: null,
     })
+
+    const [userPlaceSelect, setUserPlaceSelect] = useState('')
+    const [userFirstNameInput, setUserFirstNameInput] = useState('')
+    const [userLastNameInput, setUserLastNameInput] = useState('')
+    const [userGenderSelect, setUserGenderSelect] = useState('')
 
     const [footballInputValue, setFootballInputValue] = useState(false)
     const [basketballInputValue, setBasketballInputValue] = useState(false)
@@ -20,53 +27,104 @@ const AppProvider = ({ children }) => {
     const [walkInputValue, setWalkInputValue] = useState(false)
     const [chessInputValue, setChessInputValue] = useState(false)
 
-    let handleFootballInputChange = () => setFootballInputValue(!footballInputValue)
-    let handleBasketballInputChange = () => setBasketballInputValue(!basketballInputValue)
-    let handleBikeInputChange = () => setBikeInputValue(!bikeInputValue)
-    let handleDucksInputChange = () => setDucksInputValue(!ducksInputValue)
-    let handleWalkInputChange = () => setWalkInputValue(!walkInputValue)
-    let handleChessInputChange = () => setChessInputValue(!chessInputValue)
+    const [currentFootballInputValue, setCurrentFootballInputValue] = useState(false)
+    const [currentBasketballInputValue, setCurrentBasketballInputValue] = useState(false)
+    const [currentChessInputValue, setCurrentChessInputValue] = useState(false)
+    const [currentWalkInputValue, setCurrentWalkInputValue] = useState(false)
+    const [currentDucksInputValue, setCurrentDucksInputValue] = useState(false)
+    const [currentBikeInputValue, setCurrentBikeInputValue] = useState(false)
 
-    let actievietes = [{
+
+
+
+    let handleActivityInputChange = (activityInputValue, setActivityInputValue) => setActivityInputValue(!activityInputValue)
+
+    let activities = [{
         text: 'Piłka nozna',
-        activity: 'football',
+        type: 'football',
         checked: footballInputValue,
-        click: handleFootballInputChange
+        currentChecked: currentFootballInputValue,
+        setState: setFootballInputValue,
+        click: () => handleActivityInputChange(footballInputValue, setFootballInputValue),
+        currentClick: () => handleActivityInputChange(currentFootballInputValue, setCurrentFootballInputValue)
     },
     {
         text: 'Piłka koszykowa',
         activity: 'basketball',
         checked: basketballInputValue,
-        click: handleBasketballInputChange
+        currentChecked: currentBasketballInputValue,
+        setState: setBasketballInputValue,
+        click: () => handleActivityInputChange(basketballInputValue, setBasketballInputValue),
+        currentClick: () => handleActivityInputChange(currentBasketballInputValue, setCurrentBasketballInputValue)
     },
     {
         text: 'Szachy',
         activity: 'chess',
         checked: chessInputValue,
-        click: handleChessInputChange
+        currentChecked: currentChessInputValue,
+        setState: setChessInputValue,
+        click: () => handleActivityInputChange(chessInputValue, setChessInputValue),
+        currentClick: () => handleActivityInputChange(currentChessInputValue, setCurrentChessInputValue)
     },
     {
         text: 'Spacer',
         activity: 'walk',
         checked: walkInputValue,
-        click: handleWalkInputChange
+        currentChecked: currentWalkInputValue,
+        setState: setWalkInputValue,
+        click: () => handleActivityInputChange(walkInputValue, setWalkInputValue),
+        currentClick: () => handleActivityInputChange(currentWalkInputValue, setCurrentWalkInputValue)
+
     },
     {
         text: 'Karmienie kaczek',
         activity: 'ducks',
         checked: ducksInputValue,
-        click: handleDucksInputChange
+        currentChecked: currentDucksInputValue,
+        setState: setDucksInputValue,
+        click: () => handleActivityInputChange(ducksInputValue, setDucksInputValue),
+        currentClick: () => handleActivityInputChange(currentDucksInputValue, setCurrentDucksInputValue)
+
     },
     {
         text: 'Jazda na rowerze',
         activity: 'bike',
         checked: bikeInputValue,
-        click: handleBikeInputChange
+        currentchecked: currentBikeInputValue,
+        setState: setBikeInputValue,
+        click: () => handleActivityInputChange(bikeInputValue, setBikeInputValue),
+        currentClick: () => handleActivityInputChange(currentBikeInputValue, setCurrentBikeInputValue)
     }
     ]
 
+
+
+    // activites.map(activiety => {
+    //     return (
+    //         [activiety.checked, activiety.setState] = useState(false)
+    //     )
+    // })
+
+
+
+
+
     return (
-        <AppContext.Provider value={{ userData, setUserData, actievietes, isUserLogged, setIsUserLogged }}
+        <AppContext.Provider value={{
+            userData,
+            setUserData,
+            activities,
+            isUserLogged,
+            setIsUserLogged,
+            userPlaceSelect,
+            setUserPlaceSelect,
+            userFirstNameInput,
+            setUserFirstNameInput,
+            userLastNameInput,
+            setUserLastNameInput,
+            userGenderSelect,
+            setUserGenderSelect
+        }}
         >
             {children}
         </AppContext.Provider>
