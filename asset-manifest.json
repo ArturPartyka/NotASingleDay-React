@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/arturpartyka.github.io/NotASingleDay-NaST/static/css/main.4a7e556e.css",
-    "main.js": "/arturpartyka.github.io/NotASingleDay-NaST/static/js/main.645fdb1a.js",
-    "index.html": "/arturpartyka.github.io/NotASingleDay-NaST/index.html",
-    "main.4a7e556e.css.map": "/arturpartyka.github.io/NotASingleDay-NaST/static/css/main.4a7e556e.css.map",
-    "main.645fdb1a.js.map": "/arturpartyka.github.io/NotASingleDay-NaST/static/js/main.645fdb1a.js.map"
+    "main.css": "/NotASingleDay-NaST/static/css/main.4a7e556e.css",
+    "main.js": "/NotASingleDay-NaST/static/js/main.bca359ff.js",
+    "index.html": "/NotASingleDay-NaST/index.html",
+    "main.4a7e556e.css.map": "/NotASingleDay-NaST/static/css/main.4a7e556e.css.map",
+    "main.bca359ff.js.map": "/NotASingleDay-NaST/static/js/main.bca359ff.js.map"
   },
   "entrypoints": [
     "static/css/main.4a7e556e.css",
-    "static/js/main.645fdb1a.js"
+    "static/js/main.bca359ff.js"
   ]
 }
