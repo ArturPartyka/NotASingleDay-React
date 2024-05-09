@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ActivitiesInput from './ActivitiesInput';
@@ -8,9 +8,12 @@ import { AppContext } from '../AppProvider';
 
 function NewProfilePage() {
 
-
+    const navigate = useNavigate()
 
     const {
+        refreshNewProfilePage,
+        newProfileActivities,
+        setNewProfileActivities,
         activities,
         isUserLogged,
         userFirstNameInput,
@@ -22,7 +25,7 @@ function NewProfilePage() {
         setUserPlaceSelect,
         setUserFirstNameInput,
         setUserLastNameInput,
-        setUserGenderSelect
+        setUserGenderSelect,
     } = useContext(AppContext)
 
     let handleUserPlaceSelect = e => setUserPlaceSelect(e.target.value)
@@ -30,34 +33,59 @@ function NewProfilePage() {
     let handleUserLastNameInput = e => setUserLastNameInput(e.target.value)
     let hendleUserGenderSelect = e => setUserGenderSelect(e.target.value)
 
-    const navigate = useNavigate()
+    // const [newProfileActivities, setNewProfileActivities] = useState([])
 
-    let activitiesInputs = () => activities.map(activity => {
+
+    useEffect(() => {
+        if (refreshNewProfilePage) {
+
+            let allActivities = activities.map((activity) => ({
+                ...activity,
+                checked: false,
+                click: () => {
+                    let arrActivities = [...allActivities]
+                    const activityIndex = arrActivities.findIndex(act => act.type == activity.type)
+                    arrActivities[activityIndex].checked = !arrActivities[activityIndex].checked
+                    allActivities = arrActivities
+                    setNewProfileActivities(allActivities)
+                }
+            }))
+            setNewProfileActivities(allActivities)
+        }
+    }, [])
+
+    let activitiesInputs = () => newProfileActivities.map(activity => {
+
         return (
             <ActivitiesInput
                 key={activity.text}
                 text={activity.text}
                 activity={activity.type}
                 checked={activity.checked}
-                click={activity.click} />)
+                click={activity.click}
+            />)
     })
 
     let handleSubmit = (e) => {
         e.preventDefault()
-        let userActivities = activities.filter(activity => activity.checked)
+        let userActivities = newProfileActivities.map(activity => ({
+            type: activity.type,
+            text: activity.text,
+            checked: activity.checked,
+        }))
         if (!userFirstNameInput) return alert('Wpisz swoje imię')
         if (!userLastNameInput) return alert('Wpisz swoje nazwisko')
         if (!userPlaceSelect) return alert('Wybierz swoje miasto')
-        if (userActivities.length === 0) return alert('Wybierz swoje aktywności')
+        if (newProfileActivities.length === 0) return alert('Wybierz swoje aktywności')
         setUserData({
             firstName: userFirstNameInput,
             lastName: userLastNameInput,
             place: userPlaceSelect,
             gender: userGenderSelect,
-            userActivities: userActivities,
+            userActivities: userActivities
         })
         setIsUserLogged(true)
-        navigate('/ProfilePage')
+        navigate('/profile-page')
     }
 
     return (

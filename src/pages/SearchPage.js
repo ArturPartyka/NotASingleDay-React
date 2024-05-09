@@ -5,10 +5,10 @@ function SearchPage() {
     return (
         <>
 
-            <NavLink to='/shareUserData'>
+            <NavLink to='/share-user-data'>
                 <h4>Daj się wyszukać</h4>
             </NavLink>
-            <NavLink to='/findUsers'>
+            <NavLink to='/find-users'>
                 <h4>Szukaj osób</h4>
             </NavLink>
         </>

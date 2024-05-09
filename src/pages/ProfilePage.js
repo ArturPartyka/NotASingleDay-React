@@ -6,18 +6,20 @@ import { AppContext } from '../AppProvider';
 // import ActivitiesInput from './ActivitiesInput';
 
 function ProfilePage() {
-    const { userData } = useContext(AppContext)
+    const { userData, setRefreshNewProfilePage } = useContext(AppContext)
     const navigate = useNavigate()
 
     // const [actualActivitiesChecked, setAactualActivitiesChecked] = useState(false)
 
     let handleProfileEditButtonCLick = () => {
-        navigate('/NewProfilePage')
+        setRefreshNewProfilePage(false)
+        navigate('/new-profile-page')
     }
 
     let activitiesInputs = () => {
         if (userData.userActivities) {
-            return (userData.userActivities.map(activity => {
+            const checkedActivities = userData.userActivities.filter(activity => activity.checked)
+            return (checkedActivities.map(activity => {
                 return (
                     <li key={activity.text}>
                         {activity.text}

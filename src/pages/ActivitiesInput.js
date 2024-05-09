@@ -1,6 +1,8 @@
 import React from 'react';
 
+
 function ActivitiesInput({ text, activity, checked, click }) {
+
     return (
         <label htmlFor={activity}>
             {text}

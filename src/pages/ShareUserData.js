@@ -7,62 +7,84 @@ import { AppContext } from '../AppProvider';
 
 
 function ShareUserData() {
-    const { userData, activities } = useContext(AppContext)
+    const { userData } = useContext(AppContext)
 
     const [newPlaceSelect, setNewPlaceSelect] = useState('')
     const [selectPlaceToggle, setSelectPlaceToggle] = useState(false)
     const [selectActivitiesToggle, setSelectActivitiesToggle] = useState(true)
+    const [newActivities, setNewActivities] = useState(userData.userActivities)
+    // const newActivities = userData.userActivities ? [...userData.userActivities] : [];
+    //useMemo newActivities
 
     let handleUserPlaceSelect = e => {
         setNewPlaceSelect(e.target.value)
         setSelectPlaceToggle(!selectPlaceToggle)
     }
 
-    let newActivities = []
-    userData.userActivities.map(activity => {
-        newActivities.push(activity)
-    })
-    console.log(newActivities);
 
     let handleSelectPlaceToggleButton = () => setSelectPlaceToggle(!selectPlaceToggle)
+
     let handleSelectActivitiesToggleButton = () => {
         setSelectActivitiesToggle(!selectActivitiesToggle)
 
-        let currentActivites = activities.filter(activity => activity.currentChecked)
-        setActiveActivities(currentActivites)
-
+        activeActivitiesItems = () => {
+            const checkedActivities = newActivities.filter(activity => activity.checked)
+            return (checkedActivities.map(activity => {
+                return (
+                    <li key={activity.text}>
+                        {activity.text}
+                    </li>)
+            }))
+        }
     }
 
+    let activeActivitiesItems = () => {
+        if (newActivities) {
+            const checkedActivities = newActivities.filter(activity => activity.checked)
+            return (checkedActivities.map(activity => {
+                return (
+                    <li key={activity.text}>
+                        {activity.text}
+                    </li>)
+            }))
+        }
+    }
 
-    const [activeActivities, setActiveActivities] = useState(newActivities)
-
-    let activeUserActivities = () => activeActivities.map(activity =>
-        <li key={activity.text}><input type="text" value={activity.text} readOnly /></li>)
-
-
-
-    let activitiesInputs = () => activities.map(activity => {
+    let activitiesInputs = () => {
+        let decoratedNewActivities = newActivities.map(activity => ({
+            ...activity,
+            click: () => {
+                let arrActivities = [...decoratedNewActivities]
+                const activityIndex = arrActivities.findIndex(act => act.type == activity.type)
+                arrActivities[activityIndex].checked = !arrActivities[activityIndex].checked
+                decoratedNewActivities = arrActivities
+                setNewActivities(decoratedNewActivities)
+            }
+        }))
         return (
-            <ActivitiesInput
-                key={activity.text}
-                text={activity.text}
-                activity={activity.activity}
-                checked={activity.currentChecked}
-                click={activity.currentClick} />)
-    })
-
+            decoratedNewActivities.map(activity => {
+                return (
+                    <ActivitiesInput
+                        key={activity.type}
+                        text={activity.text}
+                        activity={activity.type}
+                        checked={activity.checked}
+                        click={activity.click} />)
+            })
+        )
+    }
+    const currentData = new Date()
+    console.log(newPlaceSelect);
     return (
-
         <>
-
             <div>
                 <span>Wybierz miejsce:</span>
                 {selectPlaceToggle ?
                     <label>
-                        <input type="text" value={newPlaceSelect === "" ? userData.place : newPlaceSelect} readOnly />
+                        <input type="text" value={newPlaceSelect == '' ? userData.place : newPlaceSelect} readOnly />
                         <button onClick={handleSelectPlaceToggleButton}>Zmień</button>
                     </label> :
-                    <PlaceSelect placeSelect={newPlaceSelect} handlePlaceSelect={handleUserPlaceSelect} />
+                    <PlaceSelect placeSelect={newPlaceSelect == '' ? userData.place : newPlaceSelect} handlePlaceSelect={handleUserPlaceSelect} />
                 }
             </div>
             {userData.userActivities ?
@@ -70,7 +92,7 @@ function ShareUserData() {
                     <span>Wybierz aktywności:</span>
                     {selectActivitiesToggle ?
                         <div>
-                            {activeUserActivities()}
+                            {activeActivitiesItems()}
                         </div> :
                         <div>
                             {activitiesInputs()}
@@ -80,6 +102,15 @@ function ShareUserData() {
                 </div> :
                 <div>Nie ma aktywności</div>
             }
+            <div>
+                <label htmlFor="">
+                    określ czas
+                    od kiedy masz czas:
+                    <input type="datetime-local" name="" id="" />
+                    do kiedy masz czas:
+                    <input type="datetime-local" name="" id="" />
+                </label>
+            </div>
 
         </>
     );

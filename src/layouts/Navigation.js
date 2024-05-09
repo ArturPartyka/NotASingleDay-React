@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { AppContext } from '../AppProvider';
@@ -7,15 +7,18 @@ function Navigation() {
 
     const { isUserLogged } = useContext(AppContext)
 
-    const profilePagePath = isUserLogged ? '/ProfilePage' : '/NewProfilePage'
 
-    const list = [
-        { name: 'start', path: '/', },
-        { name: 'wyszukiwarka', path: '/search' },
-        { name: 'znajomi', path: '/friends', },
-        { name: 'wydarzenia', path: '/events', },
-        { name: 'Twój profil', path: profilePagePath, },
-    ]
+    const list = useMemo(() => {
+        const profilePagePath = isUserLogged ? '/profile-page' : '/new-profile-page'
+        return [
+            { name: 'start', path: '/', },
+            { name: 'wyszukiwarka', path: '/search' },
+            { name: 'znajomi', path: '/friends', },
+            { name: 'wydarzenia', path: '/events', },
+            { name: 'Twój profil', path: profilePagePath, },
+
+        ]
+    }, [isUserLogged])
 
     const menu = list.map(item => (
         <li key={item.name} className='NavigationElem'>
@@ -35,3 +38,5 @@ function Navigation() {
 }
 
 export default Navigation;
+
+//useMemo dla

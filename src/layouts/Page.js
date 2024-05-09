@@ -29,14 +29,16 @@ function Page() {
     return (
         <div className='Page'>
             <Routes>
-                <Route path='/NewProfilePage' element={<NewProfilePage />} />
-                <Route path='/ProfilePage' element={<ProfilePage />} />
+                <Route path='/new-profile-page' element={<NewProfilePage />} />
+                <Route path='/profile-page' element={<ProfilePage />} />
                 <Route path='/search' element={<SearchPage />} />
-                <Route path='/findUsers' element={<FindUsers />} />
-                <Route path='/shareUserData' element={<ShareUserData />} />
+                <Route path='/find-users' element={<FindUsers />} />
+                <Route path='/share-user-data' element={<ShareUserData />} />
             </Routes>
         </div>
     );
 }
 
 export default Page;
+
+//zmienić nazwewnictwo na małe z myślnikami
