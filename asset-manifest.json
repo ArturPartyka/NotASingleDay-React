@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/NotASingleDay-React/static/css/main.4a7e556e.css",
-    "main.js": "/NotASingleDay-React/static/js/main.3bd3d14e.js",
-    "index.html": "/NotASingleDay-React/index.html",
-    "main.4a7e556e.css.map": "/NotASingleDay-React/static/css/main.4a7e556e.css.map",
-    "main.3bd3d14e.js.map": "/NotASingleDay-React/static/js/main.3bd3d14e.js.map"
+    "main.css": "/NotASingleTime-React/static/css/main.4a7e556e.css",
+    "main.js": "/NotASingleTime-React/static/js/main.3bd3d14e.js",
+    "index.html": "/NotASingleTime-React/index.html",
+    "main.4a7e556e.css.map": "/NotASingleTime-React/static/css/main.4a7e556e.css.map",
+    "main.3bd3d14e.js.map": "/NotASingleTime-React/static/js/main.3bd3d14e.js.map"
   },
   "entrypoints": [
     "static/css/main.4a7e556e.css",
