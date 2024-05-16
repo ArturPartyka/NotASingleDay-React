@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Routes, } from 'react-router-dom';
-import { AppContext } from '../AppProvider';
 
 import NewProfilePage from '../pages/NewProfilePage';
 import ProfilePage from '../pages/ProfilePage';

@@ -1,15 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AppContext } from '../AppProvider';
 
-// import ActivitiesInput from './ActivitiesInput';
+
 
 function ProfilePage() {
     const { userData, setRefreshNewProfilePage } = useContext(AppContext)
     const navigate = useNavigate()
 
-    // const [actualActivitiesChecked, setAactualActivitiesChecked] = useState(false)
 
     let handleProfileEditButtonCLick = () => {
         setRefreshNewProfilePage(false)

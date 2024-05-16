@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ActivitiesInput from './ActivitiesInput';
@@ -10,15 +10,13 @@ function NewProfilePage() {
 
     const navigate = useNavigate()
 
+
     const {
-        refreshNewProfilePage,
-        newProfileActivities,
-        setNewProfileActivities,
-        activities,
         isUserLogged,
         userFirstNameInput,
         userGenderSelect,
         userLastNameInput,
+        userData,
         userPlaceSelect,
         setIsUserLogged,
         setUserData,
@@ -27,34 +25,28 @@ function NewProfilePage() {
         setUserLastNameInput,
         setUserGenderSelect,
     } = useContext(AppContext)
+    console.log(userData.userActivites);
+    const [displayedActivities, setDisplayedActivities] = useState([...userData.userActivities]);
 
     let handleUserPlaceSelect = e => setUserPlaceSelect(e.target.value)
     let handleUserFirstNameInput = e => setUserFirstNameInput(e.target.value)
     let handleUserLastNameInput = e => setUserLastNameInput(e.target.value)
     let hendleUserGenderSelect = e => setUserGenderSelect(e.target.value)
 
-    // const [newProfileActivities, setNewProfileActivities] = useState([])
-
-
-    useEffect(() => {
-        if (refreshNewProfilePage) {
-
-            let allActivities = activities.map((activity) => ({
-                ...activity,
-                checked: false,
-                click: () => {
-                    let arrActivities = [...allActivities]
-                    const activityIndex = arrActivities.findIndex(act => act.type == activity.type)
-                    arrActivities[activityIndex].checked = !arrActivities[activityIndex].checked
-                    allActivities = arrActivities
-                    setNewProfileActivities(allActivities)
+    let onActivityClick = (clickedActivity) => {
+        let newDisplayedActivities = displayedActivities.map(
+            (activity) => (activity.text === clickedActivity.text) ?
+                {
+                    ...activity,
+                    checked: !activity.checked
                 }
-            }))
-            setNewProfileActivities(allActivities)
-        }
-    }, [])
+                : activity
+        )
+        setDisplayedActivities(newDisplayedActivities)
 
-    let activitiesInputs = () => newProfileActivities.map(activity => {
+    }
+
+    let activitiesInputs = () => displayedActivities.map(activity => {
 
         return (
             <ActivitiesInput
@@ -62,27 +54,23 @@ function NewProfilePage() {
                 text={activity.text}
                 activity={activity.type}
                 checked={activity.checked}
-                click={activity.click}
+                click={() => onActivityClick(activity)}
             />)
     })
 
     let handleSubmit = (e) => {
         e.preventDefault()
-        let userActivities = newProfileActivities.map(activity => ({
-            type: activity.type,
-            text: activity.text,
-            checked: activity.checked,
-        }))
+        console.log(displayedActivities);
         if (!userFirstNameInput) return alert('Wpisz swoje imię')
         if (!userLastNameInput) return alert('Wpisz swoje nazwisko')
         if (!userPlaceSelect) return alert('Wybierz swoje miasto')
-        if (newProfileActivities.length === 0) return alert('Wybierz swoje aktywności')
+        if (displayedActivities.filter(activity => activity.checked).length === 0) return alert('Wybierz swoje aktywności')
         setUserData({
             firstName: userFirstNameInput,
             lastName: userLastNameInput,
             place: userPlaceSelect,
             gender: userGenderSelect,
-            userActivities: userActivities
+            userActivities: [...displayedActivities]
         })
         setIsUserLogged(true)
         navigate('/profile-page')

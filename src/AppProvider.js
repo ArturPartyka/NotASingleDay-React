@@ -1,6 +1,28 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const AppContext = createContext("");
+
+let activities = [{
+    text: 'Piłka nozna',
+    type: 'football',
+},
+{
+    text: 'Piłka koszykowa',
+    type: 'basketball',
+},
+{
+    text: 'Szachy',
+    type: 'chess',
+},
+{
+    text: 'Spacer',
+    type: 'walk',
+},
+{
+    text: 'Jazda na rowerze',
+    type: 'bike',
+},
+]
 
 const AppProvider = ({ children }) => {
 
@@ -12,44 +34,36 @@ const AppProvider = ({ children }) => {
         lastName: '',
         place: '',
         gender: '',
-        userActivites: null,
+        userActivities: activities.map(activity => ({
+            ...activity,
+            checked: false,
+        }))
+    })
+    const [sharedUserData, setSharedUserData] = useState({
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        place: userData.place,
+        gender: userData.gender,
+        activities: [],
+        begginingTime: '',
+        endingTime: '',
     })
 
     const [userPlaceSelect, setUserPlaceSelect] = useState('')
     const [userFirstNameInput, setUserFirstNameInput] = useState('')
     const [userLastNameInput, setUserLastNameInput] = useState('')
     const [userGenderSelect, setUserGenderSelect] = useState('')
-    const [newProfileActivities, setNewProfileActivities] = useState([])
+    // const [newProfileActivities, setNewProfileActivities] = useState([])
 
-    let activities = [{
-        text: 'Piłka nozna',
-        type: 'football',
-    },
-    {
-        text: 'Piłka koszykowa',
-        type: 'basketball',
-    },
-    {
-        text: 'Szachy',
-        type: 'chess',
-    },
-    {
-        text: 'Spacer',
-        type: 'walk',
-    },
-    {
-        text: 'Jazda na rowerze',
-        type: 'bike',
-    },
-    ]
+
 
 
     return (
         <AppContext.Provider value={{
+            sharedUserData,
+            setSharedUserData,
             refreshNewProfilePage,
             setRefreshNewProfilePage,
-            newProfileActivities,
-            setNewProfileActivities,
             userData,
             setUserData,
             activities,

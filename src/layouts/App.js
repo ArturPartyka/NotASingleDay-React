@@ -13,10 +13,10 @@ function App() {
     <div className='App'>
 
       <AppProvider>
-
         <Header />
         <Page />
       </AppProvider>
+
     </div>
   );
 }
