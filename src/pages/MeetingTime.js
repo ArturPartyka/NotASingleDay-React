@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 function MeetingTime() {
 
-    const currentDate = new Date().toISOString().slice(0, 16)
+    const hours = parseInt(new Date().toISOString().slice(11, 13)) + 2
+    const date = new Date().toISOString()
+    const currentDate = date.slice(0, 11) + hours + date.slice(13, 16)
 
     const [begginingTime, setBegginingTime] = useState(currentDate)
     const [endingTime, setEndingTime] = useState(currentDate)

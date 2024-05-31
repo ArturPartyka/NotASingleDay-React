@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const AppContext = createContext("");
 
@@ -53,30 +53,51 @@ const AppProvider = ({ children }) => {
     const [userFirstNameInput, setUserFirstNameInput] = useState('')
     const [userLastNameInput, setUserLastNameInput] = useState('')
     const [userGenderSelect, setUserGenderSelect] = useState('')
+    const [randomUserData, setRandomUserData] = useState(null)
     // const [newProfileActivities, setNewProfileActivities] = useState([])
 
+    let pleaces = ['bełchatów', 'biała podlaska', 'białystok', 'bielsko-biała', 'bydgoszcz', 'bytom', 'będzin', 'chełm', 'chorzów', 'częstochowa', 'dąbrowa górnicza', 'elbląg', 'ełk', 'gdańsk', 'gdynia', 'gliwice', 'gniezno', 'gorzów wielkopolski', 'grudziądz', 'głogów', 'inowrocław', 'jastrzębie-zdrój', 'jaworzno', 'jelenia góra', 'kalisz', 'katowice', 'kielce', 'konin', 'koszalin', 'kraków', 'kędzierzyn-koźle', 'legionowo', 'legnica', 'leszno', 'lubin', 'lublin', 'łódź', 'łomża', 'nowy dwór mazowiecki', 'mielec', 'mysłowice', 'olsztyn', 'opole', 'ostrowiec świętoszyski', 'ostrołęka', 'ostrów wielkopolski', 'pabianice', 'piekary śląskie', 'piotrków trybunalski', 'piła', 'poznań', 'pruszków', 'przemyśl', 'płock', 'racibórz', 'radom', 'rybnik', 'rzeszów', 'siedlce', 'siemianowice', 'sosnowiec', 'stalowa wola', 'stargard szczeciński', 'suwałki', 'szczecin', 'słupsk', 'świdnica', 'tarnów', 'tczew', 'tomaszów mazowiecki', 'toruń', 'tychy', 'warszawa', 'wałbrzych', 'wrocław', 'włocławek', 'zabrze', 'zamość', 'zgierz', 'zielona góra', 'żory',]
 
+    useEffect(() => {
 
+        const API = 'https://randomuser.me/api/?results=20'
+
+        let handleDataFetch = () => {
+            fetch(API)
+                .then(response => {
+                    if (response.ok) {
+                        return response
+                    }
+                    throw Error(response.status)
+                })
+                .then(response => response.json())
+                .then(data => setRandomUserData(data))
+        }
+        handleDataFetch()
+    }, [])
+    // const { isUserLogged } = useContext(AppContext)
 
     return (
         <AppContext.Provider value={{
-            sharedUserData,
-            setSharedUserData,
-            refreshNewProfilePage,
-            setRefreshNewProfilePage,
-            userData,
-            setUserData,
             activities,
             isUserLogged,
-            setIsUserLogged,
+            pleaces,
+            randomUserData,
+            refreshNewProfilePage,
+            sharedUserData,
+            userData,
             userPlaceSelect,
-            setUserPlaceSelect,
             userFirstNameInput,
-            setUserFirstNameInput,
             userLastNameInput,
-            setUserLastNameInput,
             userGenderSelect,
-            setUserGenderSelect
+            setIsUserLogged,
+            setRefreshNewProfilePage,
+            setSharedUserData,
+            setUserData,
+            setUserFirstNameInput,
+            setUserGenderSelect,
+            setUserPlaceSelect,
+            setUserLastNameInput,
         }}
         >
             {children}

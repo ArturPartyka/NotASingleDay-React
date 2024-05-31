@@ -25,7 +25,7 @@ function NewProfilePage() {
         setUserLastNameInput,
         setUserGenderSelect,
     } = useContext(AppContext)
-    console.log(userData.userActivites);
+
     const [displayedActivities, setDisplayedActivities] = useState([...userData.userActivities]);
 
     let handleUserPlaceSelect = e => setUserPlaceSelect(e.target.value)

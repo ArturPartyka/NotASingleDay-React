@@ -2,18 +2,28 @@ import React, { useContext, useState } from 'react';
 
 import ActivitiesInput from './ActivitiesInput';
 import PlaceSelect from '../components/PlaceSelect';
-import MeetingTime from './MeetingTime';
 
+import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../AppProvider';
 
 
 function ShareUserData() {
     const { userData, sharedUserData, setSharedUserData } = useContext(AppContext)
+    const navigate = useNavigate()
 
     const [newPlaceSelect, setNewPlaceSelect] = useState('')
     const [selectPlaceToggle, setSelectPlaceToggle] = useState(false)
     const [selectActivitiesToggle, setSelectActivitiesToggle] = useState(true)
     const [newActivities, setNewActivities] = useState(userData.userActivities)
+
+    const hours = parseInt(new Date().toISOString().slice(11, 13)) + 2
+    const date = new Date().toISOString()
+    const currentDate = date.slice(0, 11) + hours + date.slice(13, 16)
+    const [begginingTime, setBegginingTime] = useState(currentDate)
+    const [endingTime, setEndingTime] = useState(currentDate)
+
+    let handleNewDate = e => setBegginingTime(e.target.value)
+    let handleEndingTime = e => setEndingTime(e.target.value)
 
     let handleSelectPlaceToggleButton = () => setSelectPlaceToggle(!selectPlaceToggle)
 
@@ -75,15 +85,16 @@ function ShareUserData() {
         const checkedActivities = newActivities.filter(activity => activity.checked)
         e.preventDefault()
         let newSharedUserData = {
-            ...sharedUserData,
-            place: newPlaceSelect,
+            ...userData,
+            place: newPlaceSelect ? newPlaceSelect : userData.place,
             activities: checkedActivities,
-            begginingTime: '',
-            endingTime: '',
+            begginingTime: begginingTime,
+            endingTime: endingTime,
         }
         setSharedUserData(newSharedUserData)
+        navigate('/user-data')
     }
-    console.log(sharedUserData);
+
     return (
         <>
             <form action="" onSubmit={handleSubmit}>
@@ -91,11 +102,11 @@ function ShareUserData() {
                 <div>
                     <span>Wybierz miejsce:</span>
                     {selectPlaceToggle ?
-                        <label>
+                        <PlaceSelect placeSelect={newPlaceSelect === '' ? userData.place : newPlaceSelect} handlePlaceSelect={handleUserPlaceSelect} />
+                        : <label>
                             <input type="text" value={newPlaceSelect === '' ? userData.place : newPlaceSelect} readOnly />
                             <button type="button" onClick={handleSelectPlaceToggleButton}>Zmień</button>
-                        </label> :
-                        <PlaceSelect placeSelect={newPlaceSelect === '' ? userData.place : newPlaceSelect} handlePlaceSelect={handleUserPlaceSelect} />
+                        </label>
                     }
                 </div>
                 {userData.userActivities ?
@@ -113,7 +124,16 @@ function ShareUserData() {
                     </div> :
                     <div>Nie ma aktywności</div>
                 }
-                <MeetingTime />
+                <div>
+                    <label htmlFor="">
+                        określ czas
+                        <br />
+                        od kiedy masz czas:
+                        <input type="datetime-local" value={begginingTime} onChange={handleNewDate} min={currentDate} />
+                        do kiedy masz czas:
+                        <input type="datetime-local" value={endingTime} onChange={handleEndingTime} min={begginingTime} />
+                    </label>
+                </div>
                 <button type='submit'>Zapisz</button>
             </form>
 

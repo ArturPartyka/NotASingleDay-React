@@ -12,7 +12,7 @@ function ProfilePage() {
 
     let handleProfileEditButtonCLick = () => {
         setRefreshNewProfilePage(false)
-        navigate('/new-profile-page')
+        navigate('/')
     }
 
     let activitiesInputs = () => {

@@ -9,9 +9,9 @@ function Navigation() {
 
 
     const list = useMemo(() => {
-        const profilePagePath = isUserLogged ? '/profile-page' : '/new-profile-page'
+        const profilePagePath = isUserLogged ? '/profile-page' : '/'
         return [
-            { name: 'start', path: '/', },
+            // { name: 'start', path: '/', },
             { name: 'wyszukiwarka', path: '/search' },
             { name: 'znajomi', path: '/friends', },
             { name: 'wydarzenia', path: '/events', },
