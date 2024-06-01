@@ -1,8 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { AppContext } from '../AppProvider';
+import MeetingTime from './MeetingTime';
+import { Link } from 'react-router-dom';
 
 function FindUsers() {
-    const [fittedRandomUserData, setFittedRandomUserData] = useState(null)
+    const [fittedRandomUserData, setFittedRandomUserData] = useState([])
+    // const [decoratedUsersData, setDecoratedUsersData] = useState()
     const { randomUserData, activities } = useContext(AppContext)
 
     const drawUsersActivities = () => {
@@ -18,11 +21,31 @@ function FindUsers() {
         activitiesIndexes.map(index => (
             randomUserActiviteis.push(activities[index])
         ))
+        console.log(randomUserActiviteis);
         return randomUserActiviteis
     }
 
+    const randomUserMeetingTime = () => {
+        const currentTime = new Date()
+        const endOfBegginingTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate() + 1)
+
+        const randomBegginingDate = new Date(currentTime.getTime() + Math.random() * (endOfBegginingTime.getTime() - currentTime.getTime()))
+
+        const endofEndingTime = new Date(randomBegginingDate.getFullYear(), randomBegginingDate.getMonth(), randomBegginingDate.getDate() + 1)
+        const randomEndingDate = new Date(randomBegginingDate.getTime() + Math.random() * (endofEndingTime.getTime() - randomBegginingDate.getTime()))
+
+
+        const userMeetingTime = {
+            start: randomBegginingDate.toISOString(),
+            end: randomEndingDate.toISOString(),
+        }
+
+        return (userMeetingTime);
+    }
+
+
+
     useEffect(() => {
-        // console.log(randomUserData);
         const newFittedData = randomUserData.results.map(user => {
             drawUsersActivities()
             return {
@@ -30,16 +53,42 @@ function FindUsers() {
                 lastName: user.name.last,
                 gender: user.gender,
                 activities: drawUsersActivities(),
-                // time:
+                time: randomUserMeetingTime()
             }
         })
-        console.log(newFittedData);
-        // setFittedRandomUserData(newFittedData)
+        setFittedRandomUserData(newFittedData)
+
     }, [randomUserData])
+
+
+
+
+    const decoratedUserData = (users) => (
+        users.map(user => {
+            const decoratedAct = user.activities.map(act => <li>{act.text}</li>)
+            console.log(user.activities);
+            return (
+                <div>
+                    <li>
+                        <div>{user.firstName}</div>
+                        <div>{user.lastName}</div>
+                        <div>{user.gender}</div>
+                        <div>{user.time.start}</div>
+                        <div>{user.time.end}</div>
+                    </li>
+                    <ul>
+                        {decoratedAct}
+                    </ul>
+                </div>
+            )
+        }))
+
+
+
     return (
-        <div>
-            {/* {fittedRandomUserData} */}
-        </div>
+        <ul>
+            {decoratedUserData(fittedRandomUserData)}
+        </ul>
     );
 }
 
