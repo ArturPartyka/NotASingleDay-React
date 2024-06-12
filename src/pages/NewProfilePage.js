@@ -97,7 +97,7 @@ function NewProfilePage() {
                     <select name="" id="gender" value={userGenderSelect} onChange={hendleUserGenderSelect}>
                         <option value="" disabled>Wybierz płeć</option>
                         <option value="Kobieta">Kobieta</option>
-                        <option value="Męzczyzna">Męzcyzna</option>
+                        <option value="Mężczyzna">Mężcyzna</option>
                     </select>
                 </label>
                 <label htmlFor="">
