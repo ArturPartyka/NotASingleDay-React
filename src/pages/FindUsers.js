@@ -3,6 +3,7 @@ import { AppContext } from '../AppProvider';
 import PlaceSelect from '../components/PlaceSelect';
 import ActivitiesInput from './ActivitiesInput';
 
+
 function FindUsers() {
 
     const { activities, randomUserData, pleaces, userData } = useContext(AppContext)
@@ -27,6 +28,26 @@ function FindUsers() {
     const [begginingTime, setBegginingTime] = useState(currentDate)
     const [endingTime, setEndingTime] = useState(currentDate)
 
+    useEffect(() => {
+        if (randomUserData) {
+
+            const newFittedData = randomUserData.results.map(user => {
+                drawUsersActivities()
+                return {
+                    firstName: user.name.first,
+                    lastName: user.name.last,
+                    gender: user.gender === 'male' ? 'Mężczyzna' : 'Kobieta',
+                    pleace: randomUserPleace(),
+                    activities: drawUsersActivities(),
+                    time: randomUserMeetingTime()
+                }
+            })
+            setFittedRandomUserData(newFittedData)
+        }
+
+    }, [randomUserData])
+
+    useEffect(() => filterData(), [serchingData])
     const drawUsersActivities = () => {
         const activitiesIndexes = []
         const numberOfActiviteis = Math.floor(Math.random() * 10 + 1)
@@ -45,7 +66,10 @@ function FindUsers() {
     }
 
     const randomUserMeetingTime = () => {
-        const currentTime = new Date()
+        const isoTime = new Date()
+        const time = isoTime.setHours(isoTime.getHours() + 2)
+        const currentTime = new Date(time)
+
         const endOfBegginingTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate() + 1)
 
         const randomBegginingDate = new Date(currentTime.getTime() + Math.random() * (endOfBegginingTime.getTime() - currentTime.getTime()))
@@ -69,36 +93,17 @@ function FindUsers() {
         return randomPleace
     }
 
-    // randomUserPleace()
 
-    useEffect(() => {
-        if (randomUserData) {
-
-            const newFittedData = randomUserData.results.map(user => {
-                drawUsersActivities()
-                return {
-                    firstName: user.name.first,
-                    lastName: user.name.last,
-                    gender: user.gender === 'male' ? 'Mężczyzna' : 'Kobieta',
-                    pleace: randomUserPleace(),
-                    activities: drawUsersActivities(),
-                    time: randomUserMeetingTime()
-                }
-            })
-            setFittedRandomUserData(newFittedData)
-        }
-
-    }, [randomUserData])
 
     const handleTimeInput = () => {
         setTimeInput(!timeInput)
     }
 
     const decoratedUserData = (users) => (
-        users.map(user => {
+        users.map((user, index) => {
             const decoratedAct = user.activities.map(act => <li key={act.text}>{act.text}</li>)
             return (
-                <div>
+                <li key={index}>
                     <li>
                         <div>{user.firstName}</div>
                         <div>{user.lastName}</div>
@@ -111,7 +116,7 @@ function FindUsers() {
                     <ul>
                         {decoratedAct}
                     </ul>
-                </div>
+                </li>
             )
         }))
 
@@ -128,6 +133,7 @@ function FindUsers() {
                 activity
         )
         setNewActivities(newDisplayedActivities)
+
     }
 
     let activitiesInputs = () => (
@@ -147,23 +153,44 @@ function FindUsers() {
     const handleEndingTime = e => setEndingTime(e.target.value)
 
     const filterData = () => {
-        console.log(serchingData);
+
         let filteredData = fittedRandomUserData
         console.log(filteredData);
         if (serchingData.pleace) {
             filteredData = filteredData.filter(user => user.pleace === serchingData.pleace)
         }
         if (serchingData.gender) {
+            console.log(serchingData.gender);
             filteredData = filteredData.filter(user => user.gender === serchingData.gender)
         }
         if (timeInput) {
             filteredData = filteredData.filter(user => (!(user.time.start > serchingData.endingTime) && !(user.time.end < serchingData.begginingTime)))
         }
-        setFilteredRandomUsers(filteredData)
-        console.log(filteredData);
-        console.log(serchingData.pleace);
-    }
+        if (serchingData.activities.length > 0) {
+            const activityTypes = serchingData.activities.map(activity => activity.type)
 
+            let arr = []
+            for (let i = 0; i < filteredData.length; i++) {
+                let data = filteredData[i]
+                let userActivityTypes = data.activities.map(it => it.type)
+
+                if (userActivityTypes.some(userActivity => activityTypes.includes(userActivity))) {
+                    arr.push(data)
+                }
+                // for (let i = 0; i < activityTypes.length; i++) {
+                //     if (userActivityTypes.includes(activityTypes[i])) {
+                //         arr.push(data)
+                //         break;
+                //     }
+                // }
+            }
+            filteredData = arr
+            // console.log(arr);
+        }
+        console.log(filteredData);
+        setFilteredRandomUsers(filteredData)
+
+    }
 
     const handleSubmit = e => {
         setSearchingData({
@@ -177,10 +204,9 @@ function FindUsers() {
     }
 
 
-    // console.log(serchingData, fittedRandomUserData);
     return (
         <>
-            <form action="" onSubmit={(e) => [e.preventDefault(), handleSubmit(), filterData()]}>
+            <form action="" onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
                 <div>
                     <span>Wybierz miejsce:</span>
                     <PlaceSelect placeSelect={newPlaceSelect} handlePlaceSelect={handleUserPlaceSelect} />
@@ -211,7 +237,7 @@ function FindUsers() {
 
                 <button type='submit' >szukaj</button>
             </form>
-            <ul>
+            <ul className='usersData'>
                 {filteredRandomUsers ? decoratedUserData(filteredRandomUsers) : decoratedUserData(fittedRandomUserData)}
             </ul>
         </>

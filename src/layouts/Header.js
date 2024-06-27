@@ -2,15 +2,17 @@ import React from 'react';
 
 import Navigation from './Navigation';
 import '../styles/Header.css'
+import logo from '../images/Logo.png'
 
 function Header() {
     return (
         <>
-            <div>
-                NOT a SINGLE TIME
-            </div>
+            <div className='header'>
 
-            <Navigation />
+                <img src={logo} alt="" className='logoImg' />
+
+                <Navigation />
+            </div>
         </>
     );
 }

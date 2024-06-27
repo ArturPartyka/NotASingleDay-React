@@ -1,36 +1,50 @@
+:root {
+  --primary-color1: #3D208C;
+  --primary-color2: #6A00FF;
+  --primary-color3: #E4DEF3;
+  --secondary-color1: #553E8C;
+  --secondary-color2: #8150C6;
+  --secondary-color3: #E8E3F0;
+}
+
 .App {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  width: 90%;
   margin: 0 auto;
+  background-color: var(--secondary-color3);
+  background-image: url('../images/background.png');
+  background-size: contain;
+  font-family: 'Nunito Sans';
+  color: var(--secondary-color1);
 }
 
-.App {
-  background-color: #999;
-
+.page {
+  margin-left: 15%;
+  width: 70vw;
+  height: 70vh;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: white;
 }
 
-.NavigationList {
-  display: flex;
-  flex-direction: row;
+button {
+  font-family: 'Nunito Sans';
+  background-color: var(--secondary-color1);
+  color: var(--secondary-color3);
+  width: 60px;
+  height: 30px;
+  border: 0px;
+  border-radius: 8px;
 }
 
-.NavigationElem {
-  list-style-type: none;
-  padding: 5px;
-  margin: 5px 15px;
-  text-transform: uppercase;
-  border: #555 solid;
+select {
   border-radius: 5px;
+  border-color: var(--secondary-color2);
 }
 
-.NavigationElem a {
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
+.usersData {
+  overflow: scroll;
 }
 
-.NavigationElem a.active {
-  color: darkgreen;
-}
+/* overflow: auto; */

@@ -11,7 +11,7 @@ function PlaceSelect({ placeSelect, handlePlaceSelect }) {
     return (
         <label htmlFor="place">
             <select name="" id="place" value={placeSelect} onChange={handlePlaceSelect}>
-                <option value="" disabled>Wybierz miasto</option>
+                <option value="" >Wybierz miasto</option>
                 {decoratePlaces()}
             </select>
         </label>

@@ -13,9 +13,10 @@ function Page() {
 
 
     return (
-        <div className='Page'>
+        <div className='page'>
             <Routes>
                 <Route path='/' element={<NewProfilePage />} />
+                <Route path='/login-page' element={<NewProfilePage />} />
                 <Route path='/NotASingleTime-React' element={<NewProfilePage />} />
                 <Route path='/profile-page' element={<ProfilePage />} />
                 <Route path='/search' element={<SearchPage />} />

@@ -12,25 +12,28 @@ function Navigation() {
         const profilePagePath = isUserLogged ? '/profile-page' : '/'
         return [
             // { name: 'start', path: '/', },
-            { name: 'wyszukiwarka', path: '/search' },
-            { name: 'znajomi', path: '/friends', },
-            { name: 'wydarzenia', path: '/events', },
-            { name: 'Twój profil', path: profilePagePath, },
+            { name: 'Zróbmy coś razem', path: '/search' },
+            { name: 'Ustawienia', path: '/friends', },
+            { name: 'Wydarzenia', path: '/events', },
+
 
         ]
     }, [isUserLogged])
 
     const menu = list.map(item => (
         <li key={item.name} className='NavigationElem'>
-            <NavLink to={item.path}>{item.name}</NavLink>
+            <NavLink to={item.path} className='NavLink'>{item.name}</NavLink>
         </li>
     ))
 
     return (
         <>
-            <nav>
+            <nav >
                 <ul className='NavigationList'>
                     {menu}
+                    <li className='NavigationElem LoginButton'>
+                        <NavLink to={'/login-page'}>{isUserLogged ? 'Login' : 'Zarejestruj się'}</NavLink>
+                    </li>
                 </ul>
             </nav>
         </>
