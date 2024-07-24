@@ -4,11 +4,13 @@ import React from 'react';
 function ActivitiesInput({ text, activity, checked, click }) {
 
     return (
-        <label htmlFor={activity}>
-            {text}
+        <label className='activitiesInputLabel' htmlFor={activity}>
+
             <input type="checkbox"
+                className='activitiesInput'
                 checked={checked}
                 onChange={click} />
+            {text}
         </label>
     );
 }

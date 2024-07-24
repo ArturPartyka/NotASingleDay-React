@@ -11,7 +11,7 @@ nav {
 .NavigationList {
     margin-left: 8vw;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     padding: 0;
 
@@ -26,18 +26,20 @@ nav {
 .NavigationElem a {
     text-decoration: none;
     font-weight: bold;
+    color: var(--secondary-color2);
 }
 
 .NavigationElem a.active {
-    color: var(--primary-color2)
+    color: var(--primary-color1)
 }
 
 
 
 .LoginButton {
-    border: #555 solid;
-    border-radius: 5px;
-    margin: 0 0 0 auto;
+    border: var(--secondary-color2) solid;
+    color: var(--secondary-color2);
+    border-radius: 20px;
+
 }
 
 .logoImg {

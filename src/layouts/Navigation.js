@@ -32,7 +32,9 @@ function Navigation() {
                 <ul className='NavigationList'>
                     {menu}
                     <li className='NavigationElem LoginButton'>
-                        <NavLink to={'/login-page'}>{isUserLogged ? 'Login' : 'Zarejestruj się'}</NavLink>
+                        <NavLink to={isUserLogged ? 'profile-page' : '/login-page'}>
+                            {isUserLogged ? 'Login' : 'Zarejestruj się'}
+                        </NavLink>
                     </li>
                 </ul>
             </nav>

@@ -5,6 +5,7 @@
   --secondary-color1: #553E8C;
   --secondary-color2: #8150C6;
   --secondary-color3: #E8E3F0;
+  --neutral-color3: #404040;
 }
 
 .App {
@@ -14,25 +15,28 @@
   margin: 0 auto;
   background-color: var(--secondary-color3);
   background-image: url('../images/background.png');
-  background-size: contain;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position-y: bottom;
   font-family: 'Nunito Sans';
   color: var(--secondary-color1);
 }
 
 .page {
-  margin-left: 15%;
-  width: 70vw;
+  margin: 0 20vw 0 20vw;
+  width: 60vw;
   height: 70vh;
   border-radius: 10px;
   padding: 20px;
   background-color: white;
+  overflow: auto;
 }
 
 button {
   font-family: 'Nunito Sans';
   background-color: var(--secondary-color1);
   color: var(--secondary-color3);
-  width: 60px;
+  /* width: 60px; */
   height: 30px;
   border: 0px;
   border-radius: 8px;
@@ -43,8 +47,12 @@ select {
   border-color: var(--secondary-color2);
 }
 
+input {
+  border-radius: 5px;
+  border-color: var(--secondary-color2);
+}
+
 .usersData {
   overflow: scroll;
 }
 
-/* overflow: auto; */

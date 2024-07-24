@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../AppProvider';
 
-function PlaceSelect({ placeSelect, handlePlaceSelect, }) {
+function ActivitiesInput({ placeSelect, handlePlaceSelect, }) {
     const { pleaces } = useContext(AppContext)
 
     const decoratePlaces = () => (
@@ -18,4 +18,4 @@ function PlaceSelect({ placeSelect, handlePlaceSelect, }) {
     );
 }
 
-export default PlaceSelect;
+export default ActivitiesInput;

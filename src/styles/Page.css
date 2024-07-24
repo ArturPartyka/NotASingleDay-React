@@ -1,0 +1,102 @@
+input {
+    height: 30px;
+}
+
+select {
+    height: 30px;
+}
+
+.ProfilePage-header {
+    display: flex;
+    font-weight: 700;
+}
+
+.ProfilePage-logo {
+    margin-right: 15px;
+}
+
+.ProfilePage-text {
+    color: black;
+    margin: 12px 0 12px 0;
+}
+
+.ProfilePage-text span {
+    color: grey;
+    font-size: 0.5em;
+}
+
+.ProfilePage-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.ProfilePage-formLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    color: var(--neutral-color3);
+    font-size: 0.8em;
+    margin: 0 0 10px 0;
+}
+
+.namesLabel {
+    width: 47%;
+}
+
+.ProfilPage-CitySelect label {
+    display: flex;
+    flex-direction: column;
+    /* margin-right: 10px; */
+}
+
+
+.ProfilePage-genderLabel {
+    display: flex;
+    align-self: center;
+}
+
+.ProfilePage-NameDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.genderLabel {
+    display: flex;
+    align-items: center;
+    margin-left: 10%;
+}
+
+
+
+/* .genderInput {
+    width: 47%;
+} */
+
+.profilePageButtonDiv {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+.profilePageButton {
+    width: 47%;
+}
+
+.activitiesSelectsDiv {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.activitiesInputLabel {
+    display: flex;
+    align-items: center;
+}
+
+.activitiesInput {
+    border: 20px;
+    border-color: var(--secondary-color2);
+}
